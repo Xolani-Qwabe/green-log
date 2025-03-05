@@ -3,7 +3,7 @@ const { query, validationResult, checkSchema, matchedData } = require('express-v
 const createUserValidationSchema = require('../utils/validation/userValidationSchema.js');
 const { generateFakeUsers } = require('../utils/data/faker.js');
 const User = require('../data/mongodb/models/user.js');
-const { hashPassword } = require('../utils/helpers/encrypt.js');  // Correct import
+const { hashPassword } = require('../utils/helpers/encrypt.js'); 
 
 const userRouter = Router();
 

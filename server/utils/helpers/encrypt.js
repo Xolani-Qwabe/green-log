@@ -10,8 +10,8 @@ const hashPassword = async (password) => {
 
 // Synchronous comparePassword
 const comparePassword = (plain, hashed) => {
-    return bcrypt.compareSync(plain, hashed); // Synchronous
+    return bcrypt.compareSync(plain, hashed); 
 };
 
-// Export both functions
+
 module.exports = { hashPassword, comparePassword };

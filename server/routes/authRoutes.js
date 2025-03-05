@@ -10,32 +10,36 @@ const authRouter = Router();
 // POST route for user login (Passport authentication)
 authRouter.post('/auth/login', passport.authenticate("local"), (req, res) => {
     console.log(`Logged in User with userId : ${req.user._id}`);
-    return res.status(200).send({ msg: "ok" });
+    return res.status(200).json({ success: true, userId: req.user._id });
 });
+
 
 // POST route for creating a new user (moved here from userRoutes.js)
 authRouter.post('/auth/local', checkSchema(createUserValidationSchema), async (req, res) => {
     const result = validationResult(req);
-    if (!result.isEmpty()) return res.send(result.array());
+    if (!result.isEmpty()) return res.status(400).json(result.array());
 
     const data = matchedData(req);
-
-    // Hash the password before saving the user
     data.password = await hashPassword(data.password);
-    console.log(data);
 
     const newUser = new User(data);
     if (!newUser.username) newUser.username = newUser.email;
-    console.log(newUser);
 
     try {
         const savedUser = await newUser.save();
-        return res.status(201).send(savedUser);
+        
+        // Auto-login user after signup
+        req.login(savedUser, (err) => {
+            if (err) return res.status(500).json({ msg: "Login after signup failed" });
+            return res.status(201).json({ success: true, userId: savedUser._id });
+        });
+
     } catch (error) {
         console.log(error);
-        return res.status(400).send({ msg: "User already exists" });
+        return res.status(400).json({ msg: "User already exists" });
     }
 });
+
 
 // GET route to check authentication status
 authRouter.get('/auth/status', (req, res) => {
@@ -45,13 +49,24 @@ authRouter.get('/auth/status', (req, res) => {
 });
 
 // GET route to log the user out
-authRouter.get('/auth/logout', (req, res) => {
-    if (!req.user) return res.sendStatus(401);
-    req.logout(); // no callback needed
-    req.session.destroy((err) => {
-        if (err) return res.sendStatus(400); // handle session destruction error
-        res.clearCookie('connect.sid'); // clear the session cookie
-        res.sendStatus(200); // successfully logged out
+authRouter.get('/auth/logout', (req, res, next) => {
+    if (!req.user) return res.status(401).send({msg:"No User logged in"}); 
+
+    req.logout((err) => {
+        if (err) {
+            console.error("Logout error:", err);
+            return res.status(500).json({ msg: "Logout failed" });
+        }
+
+        req.session.destroy((err) => {
+            if (err) {
+                console.error("Session destruction error:", err);
+                return res.status(500).json({ msg: "Could not destroy session" });
+            }
+
+            res.clearCookie('connect.sid', { path: '/' }); 
+            return res.sendStatus(200); 
+        });
     });
 });
 
@@ -60,11 +75,10 @@ authRouter.get('/auth/google', passport.authenticate('google', { scope: ['profil
 
 // Google Callback Route
 authRouter.get('/auth/google/callback', 
-    passport.authenticate('google', { failureRedirect: '/login' }),
+    passport.authenticate('google', { failureRedirect: 'http://localhost:5173/login' }),
     (req, res) => {
         console.log(`Google login successful, userId: ${req.user._id}`);
-        // Redirect to the home page or desired page after successful login
-        res.redirect('/dashboard');  // Adjust this redirect as needed
+        res.redirect('http://localhost:5173/home');
     }
 );
 
