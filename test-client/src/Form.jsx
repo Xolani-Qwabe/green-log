@@ -1,50 +1,64 @@
-import { useState } from 'react'
+import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import axios from "axios";
 
 function Form() {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState(null);
 
+    // Handle form submission for local login
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError(null);
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        const formdata = { email: email, password: password }
-        console.log("Form Submitted!", formdata)
-    }
+        try {
+            const response = await axios.post(
+                "http://localhost:3000/api/auth/local", 
+                { email, password },
+                { withCredentials: true } 
+            );
+            console.log("Login Successful!", response.data);
+        } catch (err) {
+            setError("Invalid credentials. Please try again.");
+            console.error("Login Failed:", err.response?.data || err.message);
+        }
+    };
 
-    const handleEmailChange = (e) => {
-        console.log(`${e.target.value}`)
-        setEmail(e.target.value)
-    }
-    const handlePasswordChange = (e) => {
-        console.log(`${e.target.value}`)
-        setPassword(e.target.value)
-    }
+    // // Redirect to Google OAuth
+    const handleGoogleLogin = () => {
+        try {
+            window.location.href = "http://localhost:3000/api/auth/google"; 
+        } catch (error) {
+            console.error("Google Login Error:", error);
+        }
+    };
 
     return (
-        <div >
+        <div>
             <form
                 style={{
                     display: "flex",
                     flexDirection: "column",
                     backgroundColor: "#ffe",
                     padding: "2rem",
-                    gap: "0.8rem"
+                    gap: "0.8rem",
                 }}
-                action=""
-                onSubmit={handleSubmit}>
+                onSubmit={handleSubmit}
+            >
                 <label htmlFor="email">Email</label>
                 <input
                     style={{
                         borderRadius: "24px",
-                        padding: "1rem"
+                        padding: "1rem",
                     }}
                     id="email"
                     value={email}
-                    type="text"
-                    placeholder='Email'
-                    onChange={handleEmailChange}
+                    type="email"
+                    placeholder="Email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                 />
                 <label htmlFor="password">Password</label>
                 <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
@@ -53,15 +67,14 @@ function Form() {
                             borderRadius: "24px",
                             padding: "1rem",
                             width: "100%",
-                            
                         }}
                         id="password"
                         type={showPassword ? "text" : "password"}
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                     />
-                    {/* Eye Icon Button */}
                     <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
@@ -70,8 +83,8 @@ function Form() {
                             right: "10px",
                             background: "none",
                             border: "none",
-                            borderRadius:'24px',
-                            cursor: "pointer"
+                            borderRadius: "24px",
+                            cursor: "pointer",
                         }}
                     >
                         {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -80,14 +93,34 @@ function Form() {
                 <button
                     style={{
                         borderRadius: "24px",
-                        padding: "1rem"
+                        padding: "1rem",
                     }}
-                    type="submit">
-                    Submit
+                    type="submit"
+                >
+                    Login
                 </button>
+
+                {/* Google Login Button */}
+                <button
+                    type="button"
+                    onClick={handleGoogleLogin}
+                    style={{
+                        borderRadius: "24px",
+                        padding: "1rem",
+                        backgroundColor: "#DB4437",
+                        color: "white",
+                        border: "none",
+                        cursor: "pointer",
+                        marginTop: "10px",
+                    }}
+                >
+                    Login with Google
+                </button>
+
+                {error && <p style={{ color: "red" }}>{error}</p>}
             </form>
         </div>
-    )
+    );
 }
 
-export default Form
+export default Form;

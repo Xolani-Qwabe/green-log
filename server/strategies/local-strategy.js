@@ -1,7 +1,7 @@
 const passport = require('passport');
 const { Strategy } = require('passport-local');
 const User = require('../data/mongodb/models/user.js')
-const comparePassword = require('../utils/helpers/encrypt.js')
+const {comparePassword} = require('../utils/helpers/encrypt.js')
 
 passport.serializeUser((user, done)=>{
     console.log(`User serialized`);

@@ -3,18 +3,13 @@ const createUserValidationSchema = {
       isString: {
         errorMessage: "Email must be a string!",
       },
-      isLength: {
-        options: { min: 5, max: 32 },
-        errorMessage: "Email must be between 5 and 32 characters!",
-      },
       isEmail: {
         errorMessage: "Invalid email format!",
       },
       notEmpty: {
         errorMessage: "Email cannot be empty!",
       },
-      trim: true,
-      normalizeEmail: true,
+      
     },
   
     password: {
@@ -51,5 +46,5 @@ const createUserValidationSchema = {
     },
   };
   
-  module.exports = { createUserValidationSchema };
+  module.exports =  createUserValidationSchema ;
   
