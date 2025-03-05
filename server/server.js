@@ -64,17 +64,3 @@ app.get('/', (req, res) => {
 
 
 
- 
-
-
-
-
-
-
-
-
-// middleware as request res function
-// const loggingMiddleware = (req, res, next) => {
-//     console.log(`${req.method} - ${req.url}`);
-//     next()
-// }
