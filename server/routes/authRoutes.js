@@ -31,7 +31,7 @@ authRouter.post('/auth/local', checkSchema(createUserValidationSchema), async (r
         // Auto-login user after signup
         req.login(savedUser, (err) => {
             if (err) return res.status(500).json({ msg: "Login after signup failed" });
-            return res.status(201).json({ success: true, userId: savedUser._id });
+            return res.redirect('http://localhost:5173/home');
         });
 
     } catch (error) {

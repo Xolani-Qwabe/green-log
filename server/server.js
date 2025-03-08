@@ -8,10 +8,15 @@ const mongoose = require('mongoose');
 const mockUsers = require('./utils/data/constants.js');
 const passport = require('passport');
 const MongoStore = require('connect-mongo');
+const {createServer} = require('node:http');
+const { Server } = require('socket.io');
+const { join } = require('node:path');
 require('./strategies/local-strategy.js');
 require('./strategies/googlePassport.js')
 
 const app = express();
+const server = createServer(app)
+const io = new Server(server);
 
 // env values
 const PORT = process.env.PORT || 5000;
@@ -55,10 +60,9 @@ app.use(passport.session());
 // router middleware
 app.use('/api/', router);
 
-// MongoDB Connection
-app.listen(PORT, () => {
-  console.log(`Running on Port ${PORT}`);
-});
+server.listen(PORT,()=>{
+  console.log(`Server running on http://localhost:${PORT}`)
+})
 
 app.get('/', (req, res) => {
   console.log(`sessionID is : ${req.session.id}`);
@@ -67,5 +71,9 @@ app.get('/', (req, res) => {
     maxAge: 1000 * 60 * 60 * 24,
     signed: true,
   });
-  res.status(201).send(req.session);
+  res.status(201).sendFile(join(__dirname, 'index.html'));;
+});
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
 });
