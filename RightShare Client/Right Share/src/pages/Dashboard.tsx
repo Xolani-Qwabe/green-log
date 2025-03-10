@@ -20,7 +20,7 @@ function Dashboard() {
     };
 
     return (
-        <Box sx={{ width: '100%' ,mt:"4vh", height:"100%", }}>
+        <Box sx={{ width: '100%' ,mt:"8vh", height:"100%", }}>
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid size={6}>
                     <Typography variant="h4">Dashboard</Typography>

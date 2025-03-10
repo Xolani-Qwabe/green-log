@@ -42,17 +42,17 @@ function LoginSignup() {
             alignItems: "center",
             justifyContent: "center"
         }}>
-            <Card sx={{ maxWidth: 345, p: 2 }}>
+            <Card sx={{ maxWidth: 345, p: 0 }}>
                 <CardActionArea disableRipple disableTouchRipple>
                     <CardMedia
                         component="img"
-                        height="140"
+                        height="170"
                         image={img}
                         alt="Login Image"
                     />
                 </CardActionArea>
                 <CardContent sx={{
-                    p: 2,
+                    p: 1,
                     display: "flex",
                     flexDirection: "column",
                     gap: 2
@@ -94,12 +94,13 @@ function LoginSignup() {
                 {/* Divider with OR */}
                 <Divider sx={{ my: 2 }}>OR</Divider>
 
-                {/* Social Icons */}
+            
                 <Box sx={{
                     display: "flex",
                     justifyContent: "center",
                     gap: 2,
-                    my: 2
+                    my: 2,
+                    p:2
                 }}>
                     <FontAwesomeIcon icon={faGoogle} size="2x" style={{ cursor: "pointer", color: "#DB4437" }} />
                     <FontAwesomeIcon icon={faFacebook} size="2x" style={{ cursor: "pointer", color: "#1877F2" }} />

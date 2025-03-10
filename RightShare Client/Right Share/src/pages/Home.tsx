@@ -6,7 +6,7 @@ function Home() {
   const { isAuthenticated } = useContext(AuthContext)!;
 
   return (
-    <Container sx={{minHeight:"100vh", minWidth:"100%", mt:"2vh"}}>
+    <Container sx={{minHeight:"100vh", minWidth:"100%", mt:"8vh"}}>
       <Typography variant="h4">Home Page</Typography>
       <Typography>Auth Status: {isAuthenticated ? 'Authenticated' : 'Not Authenticated'}</Typography>
     </Container>

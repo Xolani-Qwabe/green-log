@@ -9,7 +9,7 @@ export const darkTheme = createTheme({
       paper: '#194054', // Darker paper background
     },
     text: {
-      primary: '#69808c', // Light grayish text for primary
+      primary: '#ccecfd', // Light grayish text for primary
       secondary: '#9ea8ae', // Lighter grayish text
       disabled: '#d3d9dc', // Very light gray for disabled text
     },
