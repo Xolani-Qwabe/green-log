@@ -2,13 +2,14 @@ import { useState, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { 
     Button, Typography, TextField, Box, Card, 
-    CardActionArea, CardMedia, CardContent, CardActions, Divider
+    CardActionArea, CardMedia, CardContent, CardActions, Divider, IconButton, InputAdornment 
 } from '@mui/material';
 import { AuthContext } from '../App';
 import img from '../assets/com.jpg';
 
 // Font Awesome Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { 
     faGoogle, faFacebook, faLinkedin, 
     faTiktok, faSpotify, faYoutube, faApple
@@ -24,6 +25,7 @@ function LoginSignup() {
     // Form State
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleAuth = (e: React.FormEvent) => {
         e.preventDefault();
@@ -42,7 +44,7 @@ function LoginSignup() {
             alignItems: "center",
             justifyContent: "center"
         }}>
-            <Card sx={{ maxWidth: 345, p: 0 }}>
+            <Card sx={{ maxWidth: 445, p: 0 , borderRadius:"24px"}}>
                 <CardActionArea disableRipple disableTouchRipple>
                     <CardMedia
                         component="img"
@@ -61,7 +63,7 @@ function LoginSignup() {
                         {isSignup ? "Sign Up" : "Login"}
                     </Typography>
                     <TextField
-                        sx={{ borderRadius: "24px" }}
+                        fullWidth
                         id="email"
                         label="Email"
                         value={email}
@@ -70,13 +72,22 @@ function LoginSignup() {
                         required
                     />
                     <TextField
-                        sx={{ borderRadius: "24px" }}
+                        fullWidth
                         id="password"
                         label="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         required
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={() => setShowPassword(!showPassword)}>
+                                        <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }}
                     />
                 </CardContent>
                 <CardActions>
@@ -94,13 +105,13 @@ function LoginSignup() {
                 {/* Divider with OR */}
                 <Divider sx={{ my: 2 }}>OR</Divider>
 
-            
+                {/* Social Icons */}
                 <Box sx={{
                     display: "flex",
                     justifyContent: "center",
                     gap: 2,
                     my: 2,
-                    p:2
+                    p: 2
                 }}>
                     <FontAwesomeIcon icon={faGoogle} size="2x" style={{ cursor: "pointer", color: "#DB4437" }} />
                     <FontAwesomeIcon icon={faFacebook} size="2x" style={{ cursor: "pointer", color: "#1877F2" }} />

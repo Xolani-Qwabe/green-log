@@ -27,13 +27,13 @@ function MyNav({ onThemeToggle, isDarkMode }: { onThemeToggle: () => void, isDar
     <AppBar position="fixed" sx={{ minWidth: "100vw", m: 0, p: 1 }}>
       <Toolbar sx={{ p: 0, m: 0, display: "flex", justifyContent:"space-between",gap: "1em" }}>
         <Box  sx={{display:"flex", flexDirection:"column",flexBasis:"flex-end" }}>
-        <IconButton sx={{ml:3, mt:-2, p:0, position:"absolute",}}>
-          <FontAwesomeIcon style={{color:"white" }} size="2x"  icon={faCloud} />
+        <IconButton sx={{ml:4, mt:-1, p:0, position:"absolute",}}>
+          <FontAwesomeIcon style={{color:"white" }} size="1x"  icon={faCloud} />
         </IconButton>
         <Typography 
         component={Link}
         to="/" 
-        variant="h5" 
+        variant="h6" 
         sx={{
           fontFamily: "Luckiest Guy", 
           flexGrow: 1, 
