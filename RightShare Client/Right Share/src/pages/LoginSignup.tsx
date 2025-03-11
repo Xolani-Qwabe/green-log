@@ -5,7 +5,7 @@ import {
     CardActionArea, CardMedia, CardContent, CardActions, Divider, IconButton, InputAdornment 
 } from '@mui/material';
 import { AuthContext } from '../App';
-import img from '../assets/com.jpg';
+import img from '../assets/block.jpg';
 
 // Font Awesome Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

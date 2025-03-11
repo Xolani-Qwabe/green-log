@@ -7,7 +7,7 @@ function Account() {
   const { isAuthenticated } = useContext(AuthContext)!;
 
   return (
-    <Grid2 container spacing={2}>
+    <Grid2 container sx={{mt:"8vh"}} spacing={2}>
       <Grid2 size={{ xs: 12 }}>
         <Typography variant="h4">Account Settings</Typography>
       </Grid2>
