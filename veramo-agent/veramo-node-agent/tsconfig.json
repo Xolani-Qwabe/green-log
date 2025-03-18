@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+      "preserveConstEnums": true,
+      "strict": true,
+      "target": "esnext",             // Ensure you're targeting the latest JS features
+      "module": "esnext",             // Enable ES modules
+      "outDir": "./dist",             // Compile to dist folder
+      "moduleResolution": "node",     // Use Node.js module resolution
+      "esModuleInterop": true,        // Enable CommonJS module interoperability
+      "downlevelIteration": true,     // Ensure for-of and other iterations work correctly
+      "skipLibCheck": true,           // Skip type-checking for declaration files
+      "resolveJsonModule": true,      // Allow importing JSON as modules
+      "allowJs": true                 // Allow JS files to be compiled
+    },
+    "include": [
+      "src/**/*.ts"                   // Include TypeScript files in src
+    ],
+    "exclude": [
+      "node_modules"                  // Exclude node_modules
+    ]
+  }
+  

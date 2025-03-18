@@ -1,0 +1,36 @@
+{
+  "name": "veramo-node-agent",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create-credential": "node --loader ts-node/esm src/create-credential.ts",
+    "list-identifiers": "node --loader ts-node/esm src/list-identifiers.ts",
+    "create-identifier": "node --loader ts-node/esm  src/create-identifier.ts",
+    "verify-credential": "node --loader ts-node/esm  src/verify-credential.ts",
+    "list-credentials": "node --loader ts-node/esm  src/list-credentials.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@veramo/core": "^6.0.0",
+    "@veramo/credential-w3c": "^6.0.0",
+    "@veramo/data-store": "^6.0.0",
+    "@veramo/did-manager": "^6.0.0",
+    "@veramo/did-provider-ethr": "^6.0.0",
+    "@veramo/did-resolver": "^6.0.0",
+    "@veramo/key-manager": "^6.0.0",
+    "@veramo/kms-local": "^6.0.0",
+    "ethr-did-resolver": "^11.0.3",
+    "sqlite3": "^5.1.7",
+    "typeorm": "^0.3.21",
+    "web-did-resolver": "^2.0.29"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  }
+}
